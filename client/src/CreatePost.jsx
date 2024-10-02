@@ -10,7 +10,7 @@ export function CreatePost({ setCurrentPage }) {
   const createPostMutation = useMutation({
     mutationFn: createPost,
     onSuccess: (data, variables, context) => {
-        queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["posts"], {exact: true});
         setCurrentPage(<Post id={data.id}/>)        
     }
   });
