@@ -10,7 +10,7 @@ export default function Post({ id }) {
 
   const userQuery = useQuery({
     queryKey: ["users", postQuery?.data?.userId],
-    enabled: postQuery?.data?.man != null,
+    enabled: postQuery?.data?.userId != null,
     queryFn: () => getUser(postQuery.data.userId),
   })
 
