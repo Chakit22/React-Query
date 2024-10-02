@@ -6,15 +6,14 @@ import Post from "./Post"
 export function CreatePost({ setCurrentPage }) {
   const titleRef = useRef()
   const bodyRef = useRef()
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const createPostMutation = useMutation({
     mutationFn: createPost,
-    onSuccess: data => {
-      queryClient.setQueryData(["posts", data.id], data)
-      queryClient.invalidateQueries(["posts"], { exact: true })
-      setCurrentPage(<Post id={data.id} />)
-    },
-  })
+    onSuccess: (data, variables, context) => {
+        queryClient.invalidateQueries(["posts"]);
+        setCurrentPage(<Post id={data.id}/>)        
+    }
+  });
 
   function handleSubmit(e) {
     e.preventDefault()

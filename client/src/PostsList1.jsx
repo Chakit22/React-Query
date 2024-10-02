@@ -1,17 +1,26 @@
 import { useQuery } from "@tanstack/react-query"
 import { getPosts } from "./api/posts"
+import { useEffect } from "react"
 
 export default function PostsList1() {
   const postsQuery = useQuery({
     queryKey: ["posts"],
     queryFn: getPosts,
-    placeholderData: [{ id: 1, title: "Initial Data" }],
   })
+
+  console.log("postsQuery.fetchStatus")
+  console.log(postsQuery.fetchStatus)
+  console.log("status")
+  console.log(postsQuery.status)
 
   if (postsQuery.status === "loading") return <h1>Loading...</h1>
   if (postsQuery.status === "error") {
     return <h1>{JSON.stringify(postsQuery.error)}</h1>
   }
+  
+  // useEffect(() => {
+  //   console.log("Current fetch status:", postsQuery.fetchStatus);
+  // }, [postsQuery.fetchStatus]);
 
   return (
     <div>

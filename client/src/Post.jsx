@@ -10,7 +10,7 @@ export default function Post({ id }) {
 
   const userQuery = useQuery({
     queryKey: ["users", postQuery?.data?.userId],
-    enabled: postQuery?.data?.userId != null,
+    enabled: postQuery?.data?.man != null,
     queryFn: () => getUser(postQuery.data.userId),
   })
 
@@ -19,19 +19,18 @@ export default function Post({ id }) {
     return <h1>{JSON.stringify(postQuery.error)}</h1>
   }
 
+  // console.log(userQuery.data)
+
   return (
     <>
       <h1>
         {postQuery.data.title} <br />
         <small>
-          {userQuery.isLoading
-            ? "Loading User..."
-            : userQuery.isError
-            ? "Error Loading User"
-            : userQuery.data.name}
+          {postQuery.data.userId}
+          {userQuery.data?.data.name}
         </small>
-      </h1>
       <p>{postQuery.data.body}</p>
+      </h1>
     </>
   )
 }
